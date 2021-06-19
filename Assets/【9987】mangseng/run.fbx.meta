@@ -1,0 +1,248 @@
+fileFormatVersion: 2
+guid: 40dfe93ab8cc7e34f8d49054c2829da1
+timeCreated: 1529539293
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: b_cloth
+    100002: b_cloth_b
+    100004: b_cloth_c
+    100006: BUFFBONE_GLB_CHANNEL_LOC
+    100008: BUFFBONE_GLB_GROUND_LOC
+    100010: BUFFBONE_GLB_WEAPON_1
+    100012: C_BUFFBONE_GLB_CENTER_LOC
+    100014: C_BUFFBONE_GLB_CHEST_LOC
+    100016: C_BUFFBONE_GLB_HEAD_LOC
+    100018: C_BUFFBONE_GLB_LAYOUT_LOC
+    100020: C_BUFFBONE_GLB_OVERHEAD_LOC
+    100022: chest
+    100024: f_cloth
+    100026: f_cloth_b
+    100028: f_cloth_c
+    100030: f_cloth_d
+    100032: hair_a
+    100034: hair_b
+    100036: hair_c
+    100038: head
+    100040: hip
+    100042: hoop
+    100044: hoop_b
+    100046: hoop_c
+    100048: L_armband_1
+    100050: L_BUFFBONE_GLB_FOOT_LOC
+    100052: L_BUFFBONE_GLB_HAND_LOC
+    100054: l_foot
+    100056: l_forearm
+    100058: l_hand
+    100060: l_index
+    100062: l_index_b
+    100064: l_knee
+    100066: l_middle
+    100068: l_middle_b
+    100070: l_pants_a
+    100072: l_pants_b
+    100074: L_PARENTING_HAND_LOC
+    100076: l_pinky
+    100078: l_pinky_b
+    100080: l_ring
+    100082: l_ring_b
+    100084: l_shoulder
+    100086: l_thigh
+    100088: l_thumb
+    100090: l_thumb_b
+    100092: l_toe
+    100094: l_uparm
+    100096: mouth
+    100098: neck
+    100100: R_armband_1
+    100102: R_BUFFBONE_GLB_FOOT_LOC
+    100104: R_BUFFBONE_GLB_HAND_LOC
+    100106: r_foot
+    100108: r_forearm
+    100110: r_hand
+    100112: r_index
+    100114: r_index_b
+    100116: r_knee
+    100118: r_middle
+    100120: r_middle_b
+    100122: r_pants_a
+    100124: r_pants_b
+    100126: R_PARENTING_HAND_LOC
+    100128: r_pinky
+    100130: r_pinky_b
+    100132: r_ring
+    100134: r_ring_b
+    100136: r_shoulder
+    100138: r_thigh
+    100140: r_thumb
+    100142: r_thumb_b
+    100144: r_toe
+    100146: r_uparm
+    100148: root
+    100150: //RootNode
+    100152: spine
+    100154: transformLeeSin_muayThai
+    400000: b_cloth
+    400002: b_cloth_b
+    400004: b_cloth_c
+    400006: BUFFBONE_GLB_CHANNEL_LOC
+    400008: BUFFBONE_GLB_GROUND_LOC
+    400010: BUFFBONE_GLB_WEAPON_1
+    400012: C_BUFFBONE_GLB_CENTER_LOC
+    400014: C_BUFFBONE_GLB_CHEST_LOC
+    400016: C_BUFFBONE_GLB_HEAD_LOC
+    400018: C_BUFFBONE_GLB_LAYOUT_LOC
+    400020: C_BUFFBONE_GLB_OVERHEAD_LOC
+    400022: chest
+    400024: f_cloth
+    400026: f_cloth_b
+    400028: f_cloth_c
+    400030: f_cloth_d
+    400032: hair_a
+    400034: hair_b
+    400036: hair_c
+    400038: head
+    400040: hip
+    400042: hoop
+    400044: hoop_b
+    400046: hoop_c
+    400048: L_armband_1
+    400050: L_BUFFBONE_GLB_FOOT_LOC
+    400052: L_BUFFBONE_GLB_HAND_LOC
+    400054: l_foot
+    400056: l_forearm
+    400058: l_hand
+    400060: l_index
+    400062: l_index_b
+    400064: l_knee
+    400066: l_middle
+    400068: l_middle_b
+    400070: l_pants_a
+    400072: l_pants_b
+    400074: L_PARENTING_HAND_LOC
+    400076: l_pinky
+    400078: l_pinky_b
+    400080: l_ring
+    400082: l_ring_b
+    400084: l_shoulder
+    400086: l_thigh
+    400088: l_thumb
+    400090: l_thumb_b
+    400092: l_toe
+    400094: l_uparm
+    400096: mouth
+    400098: neck
+    400100: R_armband_1
+    400102: R_BUFFBONE_GLB_FOOT_LOC
+    400104: R_BUFFBONE_GLB_HAND_LOC
+    400106: r_foot
+    400108: r_forearm
+    400110: r_hand
+    400112: r_index
+    400114: r_index_b
+    400116: r_knee
+    400118: r_middle
+    400120: r_middle_b
+    400122: r_pants_a
+    400124: r_pants_b
+    400126: R_PARENTING_HAND_LOC
+    400128: r_pinky
+    400130: r_pinky_b
+    400132: r_ring
+    400134: r_ring_b
+    400136: r_shoulder
+    400138: r_thigh
+    400140: r_thumb
+    400142: r_thumb_b
+    400144: r_toe
+    400146: r_uparm
+    400148: root
+    400150: //RootNode
+    400152: spine
+    400154: transformLeeSin_muayThai
+    2100000: blinn2
+    4300000: transformLeeSin_muayThai
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: transformLeeSin_muayThai
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
