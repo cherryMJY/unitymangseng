@@ -1,2 +1,1 @@
-# unitymangseng
-# unitymangseng
+目前实现的盲僧的移动和攻击，然后F键闪现，存在的bug是在这个ragdoll里面的时候屁股坏掉了。
