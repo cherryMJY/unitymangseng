@@ -26,7 +26,7 @@ public class grab : MonoBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
-        if (hold && col.transform.tag != "Player")
+        if (hold)
         {
             Rigidbody rb = col.transform.GetComponent<Rigidbody>();
             if (rb != null)
