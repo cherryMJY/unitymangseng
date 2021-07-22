@@ -162,12 +162,17 @@ public class moveAnimCont : MonoBehaviour
                 TimeReborn += 1 * Time.deltaTime;
                 if (UseSpring == true)
                 {
-                    GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+
                     transform.rotation = Quaternion.Lerp(transform.rotation, RotAnt, 1.4f * Time.deltaTime);
+                    GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+                    //讲道理这里会弹回去的？
+                    //下面这一句自己加的
+                    //Debug.Log("totation:" + transform.rotation.x + " " + transform.rotation.y + " " + transform.rotation.z);
+                    RotAnt = transform.rotation;
                 }
                 else
                 {
-                    RotAnt = transform.rotation;
+                    //RotAnt = transform.rotation;
                     TimeReborn = 500;
                     GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                     for(int i=0;i< ColisoresIK.Length;i++)
@@ -183,8 +188,9 @@ public class moveAnimCont : MonoBehaviour
                     //11 
                     //这个角度不对
 
-                    var AnguloY = Mathf.LerpAngle(transform.eulerAngles.y, zhengdirection, 2.5f*Time.deltaTime);
-                    transform.eulerAngles = new Vector3(0, AnguloY, 0);
+                    //var AnguloY = Mathf.LerpAngle(transform.eulerAngles.y, CameraRot.eularAngles.y, 2.5f*Time.deltaTime);
+                    //var AnguloY = Mathf.LerpAngle(transform.eulerAngles.y, zhengdirection, 2.5f*Time.deltaTime);
+                    //transform.eulerAngles = new Vector3(0, AnguloY, 0);
                     for(int i = 0; i< ColisoresIK.Length;i++)
                     {
                         ColisoresIK[i].enabled = UseSpring;
