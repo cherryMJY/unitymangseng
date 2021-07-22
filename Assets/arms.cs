@@ -74,7 +74,8 @@ public class arms : MonoBehaviour
         {
             if (TargetMode)
             {
-                target.localEulerAngles = new Vector3(-cam.eulerAngles.x, 0, 0);
+                target.localEulerAngles = new Vector3(0, -cam.eulerAngles.y, 0);
+                //target.localEulerAngles = new Vector3(-cam.eulerAngles.x, 0, 0);
                 lowerArm.useSpring = true;
                 if (com) { com.rotation = Quaternion.LookRotation(camRot.forward); }
             }
