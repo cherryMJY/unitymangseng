@@ -42,6 +42,9 @@ public class moveAnimCont : MonoBehaviour
     private JointDrive drive;
     private int timeUse = -1;
     private float tmpTime = 0;
+    private float woodTime = 0;
+    private bool woodFlag = false;
+    private bool firstWoodFlag = false;
     private bool justHipSpring = false;
     private bool legSpring = false;
     private Quaternion hipsRotation;
@@ -62,8 +65,15 @@ public class moveAnimCont : MonoBehaviour
     public isOnGround2 LowerLeg_L_ZOther;
     public isOnGround1 Ankle_ROther;
     public isOnGround2 Ankle_LOther;
+
+
+    public isHitwood[] allWood;
+
     //public bool ifIsGrab;
     public grab Grab;
+    public float hp=5f;
+    public bool hit =false;
+
 
     /*
     bool Hips_flag = GameObject.Find("Hips").GetComponent<isOnGround1>().IsGrounded1;
@@ -80,7 +90,10 @@ public class moveAnimCont : MonoBehaviour
     */
     void Start()
     {
+        //这里的重新赋值一下就行
         //上面是ik的选装正方向
+        recordData();
+        /*
         zhengdirection = Rotate.eulerAngles.y;
         zhengdirectionX = Rotate.eulerAngles.x;
         zhengdirectionY = Rotate.eulerAngles.y;
@@ -94,6 +107,7 @@ public class moveAnimCont : MonoBehaviour
         targetPos = hips.position;
         hipsRotation = hips.rotation;
         ikRotation = Rotate.rotation; //记录开始旋转的位置
+        */
         //startHipRotation = new Vector3(0f,-90f,-81f);
         //startIkRotation = new Vector3(106f,0f,0f);
         //RotAnt = hipsRotation;
@@ -101,8 +115,34 @@ public class moveAnimCont : MonoBehaviour
         //print("ikRotat" + ikRotation.x);
         //在一边用力往上提的时候hip渐渐的达到这个角度
         distanceFootHip = hips.position - Ankle_L1.position;
-
         hibRb = GetComponent<Rigidbody>();
+        
+        Vector3 tmpPosition = transform.position;
+        character.position = transform.position;
+        transform.position = tmpPosition;
+        
+
+        if (ifUseSpring == true)
+            hp = 5f;
+        else
+            hp = 0f;
+
+    }
+    void recordData()
+    {
+        zhengdirection = Rotate.eulerAngles.y;
+        zhengdirectionX = Rotate.eulerAngles.x;
+        zhengdirectionY = Rotate.eulerAngles.y;
+        zhengdirectionZ = Rotate.eulerAngles.z;
+
+        zhengdirectionHipX = hips.eulerAngles.x;
+        zhengdirectionHipY = hips.eulerAngles.y;
+        zhengdirectionHipZ = hips.eulerAngles.z;
+
+        //这个hip也可以这么玩
+        targetPos = hips.position;
+        hipsRotation = hips.rotation;
+        ikRotation = Rotate.rotation; //记录开始旋转的位置
     }
     Quaternion getQuaternionNi(Quaternion q)
     {
@@ -169,6 +209,12 @@ public class moveAnimCont : MonoBehaviour
     void Update()
     {
 
+        
+        Vector3 tmpPosition = transform.position;
+        character.position = transform.position;
+        transform.position = tmpPosition;
+        
+
         noInput = true;
         print("ikRotat" + ikRotation.x+" "+ ikRotation.y+" " +ikRotation.z+" "+ikRotation.w);
         print("hipRotat" + hipsRotation.x + " " + hipsRotation.y + " " + hipsRotation.z + " " + hipsRotation.w);
@@ -182,8 +228,8 @@ public class moveAnimCont : MonoBehaviour
         */
         //  bool useSpringFlag = false;
 
-
-        characterRotation();
+        if(zhuJue==true)
+            characterRotation();
 
         setAllSpring();
 
@@ -417,28 +463,35 @@ public class moveAnimCont : MonoBehaviour
         //但是还有问题的是这个旋转的时候好像是绕一另外一个轴旋转
         float speed = 10f;
         float time1 = 1f;
+        //这里的每一个旋转都要重新记录
+
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            character.RotateAround(new Vector3(20,1,36), Vector3.up, 20 * Time.deltaTime);
-           // character.Rotate(Vector3.up * speed);
+            Quaternion q = Quaternion.LookRotation(new Vector3(0.01f, 0, 0), Vector3.up);
+            character.rotation = Quaternion.Slerp(character.rotation, q, speed * Time.deltaTime);
+            // character.Rotate(Vector3.up * speed);
+            recordData();
+
 
         }
         else if(Input.GetKey(KeyCode.DownArrow))
         {
             Quaternion q = Quaternion.LookRotation(new Vector3(-0.01f, 0, 0), Vector3.up);
             character.rotation = Quaternion.Slerp(character.rotation, q, speed * Time.deltaTime);
+            recordData();
 
         }
         else if(Input.GetKey(KeyCode.LeftArrow))
         {
             Quaternion q = Quaternion.LookRotation(new Vector3(0, 0, 0.01f), Vector3.up);
             character.rotation = Quaternion.Slerp(character.rotation, q, speed * Time.deltaTime);
+            recordData();
         }
         else if(Input.GetKey(KeyCode.RightArrow))
         {
             Quaternion q = Quaternion.LookRotation(new Vector3(0, 0, -0.01f), Vector3.up);
             character.rotation = Quaternion.Slerp(character.rotation, q, speed * Time.deltaTime);
-
+            recordData();
         }
     }
 
@@ -503,6 +556,7 @@ public class moveAnimCont : MonoBehaviour
         //if (Input.GetKey(KeyCode.Q)&&(!ZhanLi))
         if (Input.GetKey(KeyCode.Q) )
         {
+            hp = 5;
             qingXieFlag = false;
             //感觉这个旋转有点问题。
             // Rotate.rotation.Set(ikRotation.x, ikRotation.y, ikRotation.z, ikRotation.w);
@@ -836,6 +890,54 @@ public class moveAnimCont : MonoBehaviour
 
         //print("ifUseSpring" + ifUseSpring);
         print("UseSpring1199" + UseSpring);
+        bool hitFlag = false;
+        for(int i=0;i<allWood.Length;i++)
+        {
+            if(allWood[i].hitWood==true)
+            {
+                hitFlag = true;
+            }
+        }
+        print("hitFlag" + hitFlag);
+            //private float woodTime = 0;
+    //private int woodFlag = false;
+        //这里逻辑不太好搞
+        //这里搞完 就剩下这个旋转 明年弄完。
+        if(hitFlag==true)
+        {
+            if(woodFlag == false)
+            {
+                firstWoodFlag = true;
+            }
+            woodFlag = true;
+        }
+        else
+        {
+            firstWoodFlag = false;
+            woodFlag = false;
+        }
+        //这里要加上时间间隔
+        if(zhuJue == false&&woodFlag==true)
+        {
+            if (firstWoodFlag == true&&(woodTime == 0f ||Time.time - woodTime>=1f  ))
+            {
+                hp = hp - 1;
+                if (hp <= 0f)
+                    hp = 0;
+               // firstWoodFlag = false;
+               // woodFlag = false;
+                woodTime = Time.time;
+            }
+        }
+        if(UseSpring == false)
+        {
+            hp = 0;
+        }
+        if(hp == 0)
+        {
+            UseSpring = false;
+        }
+        print("UsingHp" + hp);
         dealAllJointWithSpring();
     }
 
