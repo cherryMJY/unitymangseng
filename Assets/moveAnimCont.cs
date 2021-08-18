@@ -75,42 +75,12 @@ public class moveAnimCont : MonoBehaviour
     public bool hit =false;
 
 
-    /*
-    bool Hips_flag = GameObject.Find("Hips").GetComponent<isOnGround1>().IsGrounded1;
-    bool Spine_01_flag = GameObject.Find("Spine_01").GetComponent<isOnGround1>().IsGrounded1;
-
-    bool UpperLeg_R_flag = GameObject.Find("UpperLeg_R Y").GetComponent<isOnGround1>().IsGrounded1;
-    bool LowerLeg_R_flag = GameObject.Find("LowerLeg_R Z").GetComponent<isOnGround1>().IsGrounded1;
-
-    bool UpperLeg_L_flag = GameObject.Find("UpperLeg_L Y").GetComponent<isOnGround2>().IsGrounded2;
-    bool LowerLeg_L_flag = GameObject.Find("LowerLeg_L Z").GetComponent<isOnGround2>().IsGrounded2;
-
-    bool Ankle_R_flag = GameObject.Find("Ankle_R").GetComponent<isOnGround1>().IsGrounded1;
-    bool Ankle_L_flag = GameObject.Find("Ankle_L").GetComponent<isOnGround2>().IsGrounded2;
-    */
     void Start()
     {
         //这里的重新赋值一下就行
         //上面是ik的选装正方向
         recordData();
-        /*
-        zhengdirection = Rotate.eulerAngles.y;
-        zhengdirectionX = Rotate.eulerAngles.x;
-        zhengdirectionY = Rotate.eulerAngles.y;
-        zhengdirectionZ = Rotate.eulerAngles.z;
 
-        zhengdirectionHipX = hips.eulerAngles.x;
-        zhengdirectionHipY = hips.eulerAngles.y;
-        zhengdirectionHipZ = hips.eulerAngles.z;
-
-        //这个hip也可以这么玩
-        targetPos = hips.position;
-        hipsRotation = hips.rotation;
-        ikRotation = Rotate.rotation; //记录开始旋转的位置
-        */
-        //startHipRotation = new Vector3(0f,-90f,-81f);
-        //startIkRotation = new Vector3(106f,0f,0f);
-        //RotAnt = hipsRotation;
 
         //print("ikRotat" + ikRotation.x);
         //在一边用力往上提的时候hip渐渐的达到这个角度
@@ -158,9 +128,7 @@ public class moveAnimCont : MonoBehaviour
     {
         Quaternion now = getQuaternionNi(q);
         Quaternion tmp = now * p;
-        //Quaternion oneVal;
-        //oneVal.Set(0f, 0f, 0f, 1f);
-        //tmp = tmp - oneVal;
+
         tmp.Set(tmp.x, tmp.y, tmp.z, tmp.w - 1);
         float norm = tmp.x * tmp.x + tmp.y * tmp.y + tmp.z * tmp.z + tmp.w * tmp.w;
         if (norm <= 1f)
@@ -186,7 +154,7 @@ public class moveAnimCont : MonoBehaviour
         if(angle > 40 && angle < 140)
             return true;
         return false;
-        //return angle;
+
     }
 
     float judgeOneAnkleHip1(Vector3 foot, Vector3 hipPosition)
@@ -210,25 +178,11 @@ public class moveAnimCont : MonoBehaviour
     void Update()
     {
 
-        
         Vector3 tmpPosition = transform.position;
         character.position = transform.position;
         transform.position = tmpPosition;
-        
-
+       
         noInput = true;
-        print("ikRotat" + ikRotation.x+" "+ ikRotation.y+" " +ikRotation.z+" "+ikRotation.w);
-        print("hipRotat" + hipsRotation.x + " " + hipsRotation.y + " " + hipsRotation.z + " " + hipsRotation.w);
-        /*
-        if(!Input.GetKey(KeyCode.LeftAlt))
-        {
-            //物体进行旋转  旋转到相机的y 
-            var Angulo = Mathf.LerpAngle(transform.eulerAngles.y, cam.eulerAngles.y, 5 * Time.deltaTime);
-            transform.eulerAngles = new Vector3(0, Angulo, 0);
-        }
-        */
-        //  bool useSpringFlag = false;
-
         if(zhuJue==true)
             characterRotation();
 
@@ -249,18 +203,6 @@ public class moveAnimCont : MonoBehaviour
             Anim.speed = 1f;
         }
 
-        /*
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            float sped = 500;
-            Vector3 movement = new Vector3(0f,0f , 1f);
-
-            //要给头加
-            //这里要判断脚没有离地 脚离地了就不能加了只有旋转
-            //if()
-            hips.GetComponent<Rigidbody>().AddForce(movement * sped);
-        }
-        */
         //很显然这个给压力的时候其实就是和这个是一样的
         //可以判定，那个方向有速度 或者速度比较大 那么给他播放动画？
         if (zhuJue == true)
@@ -329,27 +271,12 @@ public class moveAnimCont : MonoBehaviour
 
         //判断是否被拖动 
 
-        print("noInput" + noInput);
         //Anim.SetInteger("idleTo", 1);
         //感觉这里只要是站立状态就可以来一个调整因为身体不是直的。
         if (ifIsQKey == false)
         {
-            /*
-            if(noInput==false)
-            {
-                Rotate.localEulerAngles = startIkRotation;
-            }
-            else
-            {
-            */
-            //这个角度其实没啥旋转 主要是这个hip的pos动了 现在要旋转回去
-            //Rotate.eulerAngles = new Vector3(Rotate.eulerAngles.x, Dir, Rotate.eulerAngles.z);
-            //就是这个重新到这里就出现问题了
-            //   print("Rotaterota1" + Rotate.rotation.x + " " + Rotate.rotation.y + " " + Rotate.rotation.z);
-            // Rotate.localEulerAngles = startIkRotation;
 
-
-            //问题就是在这里 妈的臭狗
+            //问题就是在这里 
             //这个角度需要自己挑一下
             //这个是对的
             //欧拉角度的绕y轴旋转
@@ -361,11 +288,8 @@ public class moveAnimCont : MonoBehaviour
                 Vector3 targetPosition = Ankle_L1.position + distanceFootHip;
 
                 float magnitude = hibRb.velocity.magnitude;
-                print("magnitude1" + magnitude);
                 Vector3 velocityVal = hibRb.velocity;
-                print("vel1" + velocityVal.x +" "+ velocityVal.y+" " + velocityVal.z);
-                print("vel2" + zhengdirectionX + " " + zhengdirectionY + " " + zhengdirectionX);
-                //if (magnitude >=0.6f && magnitude <= 1.5f)
+
                 if (magnitude >= 0.4f && magnitude <= 1.5f)
                 {
                     //其实只要算出正方向和速度的角度就ok ?
@@ -383,13 +307,13 @@ public class moveAnimCont : MonoBehaviour
 
                         if (valZ > 0)
                         {
-                            print("val1");
+                          //  print("val1");
                             Dir = Mathf.LerpAngle(Dir, Frente, Transla * Time.deltaTime);
                             Anim.SetInteger("idleTo", 1);
                         }
                         else
                         {
-                            print("val2");
+                           // print("val2");
                             Dir = Mathf.LerpAngle(Dir, Frente, Transla * Time.deltaTime);
                             Anim.SetInteger("idleTo", -1);
                         }
@@ -398,23 +322,20 @@ public class moveAnimCont : MonoBehaviour
                     {
                         if (valY > 0)
                         {
-                            print("val3");
+                            //print("val3");
                             Dir = Mathf.LerpAngle(Dir, Direita, Transla * Time.deltaTime);
                             Anim.SetInteger("idleTo", 1);
                         }
                         else
                         {
-                            print("val4");
+                            //print("val4");
                             Dir = Mathf.LerpAngle(Dir, Esquerda, Transla * Time.deltaTime);
                             Anim.SetInteger("idleTo", 1);
                         }
                     }
                     Rotate.eulerAngles = new Vector3(Rotate.eulerAngles.x, Dir, Rotate.eulerAngles.z);
-                    //Anim.SetInteger("idleTo", 1);
+ 
                     legSpring = false;
-                    //int a = 1;
-                    //Anim.SetInteger("idleTo", 1);
-                    //legSpring = false;
 
                     //这里来一个判断 就是脚和身体的斜度超过了一定值就会倒地
                     if(!judgeAnkleHip(Ankle_L1.position, Ankle_R1.position, hips.position))
@@ -422,7 +343,6 @@ public class moveAnimCont : MonoBehaviour
                         qingXieFlag = true;
 
                     }
-                    Debug.Log("qingxie" + qingXieFlag);
 
                     if(Grab.hold == true)
                     {
@@ -447,12 +367,8 @@ public class moveAnimCont : MonoBehaviour
         {
             legSpring = true;
             //
-            print("hipPos2" + transform.position.x + " " + transform.position.y + " " + transform.position.z);
-            //   print("Rotaterota2" + Rotate.rotation.x + " " + Rotate.rotation.y + " " + Rotate.rotation.z);
-            //这个 106 0 0 是原来的角度  需要一开始就记录
-            //Rotate.eulerAngles = startIkRotation;
-            // Rotate.localEulerAngles = startIkRotation;
-            // Rotate.rotation.Set(ikRotation.x, ikRotation.y, ikRotation.z, ikRotation.w);
+           // print("hipPos2" + transform.position.x + " " + transform.position.y + " " + transform.position.z);
+
         }
     }
     //2分39s
@@ -474,9 +390,7 @@ public class moveAnimCont : MonoBehaviour
             character.rotation = Quaternion.Slerp(character.rotation, q, speed * Time.deltaTime);
             // character.Rotate(Vector3.up * speed);
             Vector3 tmp = new Vector3(0, 90f, 0);
-            //0 90 0
-          //  if (judgeSim(q, character.rotation))
-                recordData();
+            recordData();
 
         }
         else if(Input.GetKey(KeyCode.DownArrow))
@@ -486,9 +400,7 @@ public class moveAnimCont : MonoBehaviour
             Quaternion q = Quaternion.LookRotation(new Vector3(-0.01f, 0, 0), Vector3.up);
             character.rotation = Quaternion.Slerp(character.rotation, q, speed * Time.deltaTime);
             Vector3 tmp = new Vector3(0, -90f, 0);
-            //0 90 0
-            //if (judgeSim(q, character.rotation))
-                recordData();
+            recordData();
 
         }
         else if(Input.GetKey(KeyCode.LeftArrow))
@@ -498,9 +410,7 @@ public class moveAnimCont : MonoBehaviour
             Quaternion q = Quaternion.LookRotation(new Vector3(0, 0, 0.01f), Vector3.up);
             character.rotation = Quaternion.Slerp(character.rotation, q, speed * Time.deltaTime);
             Vector3 tmp = new Vector3(0, 0f, 0);
-            //0 90 0
-            //if (judgeSim(q, character.rotation))
-                recordData();
+            recordData();
 
         }
         else if(Input.GetKey(KeyCode.RightArrow))
@@ -510,9 +420,7 @@ public class moveAnimCont : MonoBehaviour
             Quaternion q = Quaternion.LookRotation(new Vector3(0, 0, -0.01f), Vector3.up);
             character.rotation = Quaternion.Slerp(character.rotation, q, speed * Time.deltaTime);
             Vector3 tmp = new Vector3(0, -180f, 0);
-            //0 90 0
-          //  if (judgeSim(q, character.rotation))
-                recordData();
+            recordData();
         }
     }
 
@@ -554,7 +462,7 @@ public class moveAnimCont : MonoBehaviour
             if (Ankle_L_flag1 == false && Ankle_R_flag1 == false)
                 ZhanLi = false;
         }
-        print("Zhanli" + ZhanLi);
+
         if(ZhanLi == true)
         {
             //这里来一个调整，使得身体变直
@@ -574,15 +482,12 @@ public class moveAnimCont : MonoBehaviour
             Quaternion q2 = Quaternion.Euler(tp);
             transform.rotation = Quaternion.Slerp(transform.rotation, q2, Time.deltaTime * 1);
         }
-        //if (Input.GetKey(KeyCode.Q)&&(!ZhanLi))
+
         if (Input.GetKey(KeyCode.Q) )
         {
             hp = 5;
             qingXieFlag = false;
-            //感觉这个旋转有点问题。
-            // Rotate.rotation.Set(ikRotation.x, ikRotation.y, ikRotation.z, ikRotation.w);
-            //print("ikrota" + ikRotation.x + " " + ikRotation.y + " " + ikRotation.z);
-            //print("rota" + Rotate.rotation.x + " " + Rotate.rotation.y + " " + Rotate.rotation.z);
+
             ifIsQKey = true;
             bool useSpringFlag = false;
             if (timeUse == -1 || Time.time - tmpTime < 1f)
@@ -605,21 +510,6 @@ public class moveAnimCont : MonoBehaviour
             if (timeUse == 0 && Time.time - tmpTime >= 1f)
                 useSpringFlag = true;
 
-            /*
-            if(head.position.y >= 5)
-            {
-                //如果头高于-1.5 那么就让他锁住
-                GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationY;
-            
-            }
-            */
-            /*
-            if(timeUse == 0 && Time.time - tmpTime >=3f)
-            {
-                //hip用力
-                justHipSpring = true;
-            }
-            */
             if(timeUse == 0 && Time.time - tmpTime >= 0.1f)
             {
                 //腿 用力
@@ -673,13 +563,8 @@ public class moveAnimCont : MonoBehaviour
                 Quaternion q2 = Quaternion.Euler(tp);
                 transform.rotation = Quaternion.Slerp(transform.rotation, q2, Time.deltaTime * 100);
 
-                //Rotate.eulerAngles = new Vector3(Rotate.eulerAngles.x, Dir, Rotate.eulerAngles.z);
-                // hips.eulerAngles = new Vector3(DirHipX, DirHipY, DirHipZ);
-                //Rotate.eulerAngles = startIkRotation;
-                // transform.position = new Vector3(-40f,49f,-62f);
-                //transform.position =  targetPosition;
                 useSpringFlag = true;
-            //    Rotate.rotation.Set(ikRotation.x, ikRotation.y, ikRotation.z, ikRotation.w);
+
             }
             else
             {
@@ -688,11 +573,7 @@ public class moveAnimCont : MonoBehaviour
                 //先换一题， 整理一下思路。
                 print("222Dis");
                 //错的是这里
-                //Rotate.localEulerAngles = startIkRotation;
-                //Rotate.rotation = Quaternion.Euler(106f, 0.0f, 0.0f);
-                //Rotate.rotation = Quaternion.Lerp(Rotate.rotation, Quaternion.Euler(0, 106f, 0f), 0.05f);
 
-                //Rotate.rotation = Quaternion.Lerp(Rotate.rotation, ikRotation, 0.05f);
                 float DirY = Rotate.eulerAngles.y;
                 float FrenteY = zhengdirectionY;
                 float DirX = Rotate.eulerAngles.x;
@@ -709,8 +590,7 @@ public class moveAnimCont : MonoBehaviour
                 Rotate.eulerAngles = new Vector3(DirX, DirY, DirZ);
 
                 //
-                print("nowPos" + transform.position.x + transform.position.y + transform.position.z);
-                print("now1Pos" + targetPos.x + " " + targetPos.y + " " + targetPos.z);
+
 
                 float DirHipY = hips.eulerAngles.y;
                 float FrenteHipY = zhengdirectionHipY;
@@ -723,8 +603,6 @@ public class moveAnimCont : MonoBehaviour
                 DirHipX = Mathf.LerpAngle(DirHipX, FrenteHipX, Transla * Time.deltaTime);
                 DirHipY = Mathf.LerpAngle(DirHipY, FrenteHipY, Transla * Time.deltaTime);
                 DirHipZ = Mathf.LerpAngle(DirHipZ, FrenteHipZ, Transla * Time.deltaTime);
-                //Rotate.eulerAngles = new Vector3(Rotate.eulerAngles.x, Dir, Rotate.eulerAngles.z);
-                //hips.eulerAngles = new Vector3(DirHipX, DirHipY, DirHipZ);
 
 
 
@@ -736,32 +614,14 @@ public class moveAnimCont : MonoBehaviour
                  //这个的坐标要是相对坐标
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, 100 * Time.deltaTime);
 
-                //这里还有一个position移动的问题
-                /*
-                float Dir = Rotate.eulerAngles.y;
-                float Frente = zhengdirection;
-                Dir = Mathf.LerpAngle(Dir, Frente, Transla * Time.deltaTime);
-                Rotate.eulerAngles = new Vector3(Rotate.eulerAngles.x, Dir, Rotate.eulerAngles.z);
-                */
-                //  Rotate.eulerAngles = startIkRotation;
-                //transform.rotation = Quaternion.Slerp(transform.rotation, hipsRotation, Time.deltaTime * 10);
-                //    transform.position = new Vector3(-40f, 49f, -62f);
-                //  Rotate.rotation = Quaternion.Slerp(Rotate.rotation, ikRotation, Time.deltaTime * 100);
-                //  Rotate.rotation.Set(ikRotation.x, ikRotation.y, ikRotation.z, ikRotation.w);
+
             }
 
-            // 
-           // if (timeUse == 0 && Time.time - tmpTime >= 2.5f)
-           // {
-           //     useSpringFlag = false;
-           //     timeUse = -1;
-           // }
+
             if (useSpringFlag == true)
                 UseSpring = true;
             else
                 UseSpring = false;
-
-           // dealAllJointWithSpring();
 
         }
         else
@@ -796,17 +656,11 @@ public class moveAnimCont : MonoBehaviour
             //bool judgeIfIn =  ;
             //这个地方还是有bug的因为还有有可能有脚会卡主
             //还是要回来修的
-            Debug.Log("ankle11" + Ankle_L_flag);
-            Debug.Log("ankle12" + Ankle_R_flag);
+            //Debug.Log("ankle11" + Ankle_L_flag);
+            //Debug.Log("ankle12" + Ankle_R_flag);
             if (Ankle_L_flag == false && Ankle_R_flag == false)
             {
-              // UseSpring = false;
-                /*
-                if(isOnBlueFloor)
-                {
-                    UseSpring = true;
-                }
-                */
+
             }
             else
             {
@@ -816,7 +670,7 @@ public class moveAnimCont : MonoBehaviour
                     UseSpring = false;
 
             }
-            Debug.Log("useSpring111" + UseSpring);
+           // Debug.Log("useSpring111" + UseSpring);
             Vector3 down = transform.TransformDirection(Vector3.right);
             RaycastHit hit;
             List<string> ListOfDiMian = new List<string>();
@@ -868,7 +722,7 @@ public class moveAnimCont : MonoBehaviour
             }
             else
                 UseSpring = false;
-            Debug.Log("useSpring2222" + UseSpring);
+         //   Debug.Log("useSpring2222" + UseSpring);
             //这里加一个判断速度
             float magnitude = hibRb.velocity.magnitude;
             print("magnitude222" + magnitude);
@@ -917,7 +771,7 @@ public class moveAnimCont : MonoBehaviour
                 hitFlag = true;
             }
         }
-        print("hitFlag" + hitFlag);
+       // print("hitFlag" + hitFlag);
             //private float woodTime = 0;
     //private int woodFlag = false;
         //这里逻辑不太好搞
@@ -1039,43 +893,15 @@ public class moveAnimCont : MonoBehaviour
                 TimeReborn += 1 * Time.deltaTime;
                 if (UseSpring == true)
                 {
-                    //问题就在于这个RotAnt变了
-                    /*
-                    if (first != 0)
-                    {
-                        transform.rotation = Quaternion.Lerp(transform.rotation, RotAnt, 100 * Time.deltaTime);
-                        transform.position = RotPos;
 
-                    }
-                    */
-                    //transform.rotation = Quaternion.Lerp(transform.rotation, RotAnt, 1.4f * Time.deltaTime);
-                    //if(GetComponent<Rigidbody>().constraints != RigidbodyConstraints.FreezeRotation)
-                    
                     GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationY;
-                  //  transform.rotation = Quaternion.Lerp(transform.rotation, RotAnt, 1f * Time.deltaTime);
-                    // Debug.Log("RigidbodyConstraints.FreezeRotation" + TimeReborn);
-                    //讲道理这里会弹回去的？
-                    //下面这一句自己加的
-                    // Debug.Log("totation1:" + RotAnt.x + " " + RotAnt.y + " " + RotAnt.z);
-                    //Debug.Log("totation2:" + transform.rotation.x + " " + transform.rotation.y + " " + transform.rotation.z);
-                    //if (second == 0)
-                    //{
-                    //    RotAnt = transform.rotation;
-                    //    RotPos = transform.position;
-                    //}
-                    //first = 1;
+
 
                 }
                 else
                 {
                     
-                    //second = 1;
-                    //这个没变
-                   // RotAnt = transform.rotation;
-                    //   Debug.Log("totation3:" + RotAnt.x + " " + RotAnt.y + " " + RotAnt.z);
-                    //这个变了
-                    //Debug.Log("totation4:" + transform.rotation.x + " " + transform.rotation.y + " " + transform.rotation.z);
-                    RotAnt = transform.rotation;
+                   RotAnt = transform.rotation;
                     TimeReborn = 500;
                     GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                     for (int i = 0; i < ColisoresIK.Length; i++)
