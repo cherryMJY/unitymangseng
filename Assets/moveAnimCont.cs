@@ -290,7 +290,7 @@ public class moveAnimCont : MonoBehaviour
                 float magnitude = hibRb.velocity.magnitude;
                 Vector3 velocityVal = hibRb.velocity;
 
-                if (magnitude >= 0.4f && magnitude <= 1.5f)
+                if (magnitude >= 0.4f && magnitude <= 2f)
                 {
                     //其实只要算出正方向和速度的角度就ok ?
                     // Dir = ;
@@ -727,7 +727,7 @@ public class moveAnimCont : MonoBehaviour
             float magnitude = hibRb.velocity.magnitude;
             print("magnitude222" + magnitude);
             
-            if (magnitude >= 1.5 )
+            if (magnitude >= 2 )
             {
                 UseSpring = false;
             }
