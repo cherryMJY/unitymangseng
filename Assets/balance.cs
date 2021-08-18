@@ -14,6 +14,7 @@ public class balance : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = body.position ;
+       // transform.position = body.position ;
+        //transform.position = hips.position;
     }
 }

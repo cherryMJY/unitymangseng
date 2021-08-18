@@ -33,7 +33,9 @@ public class grab : MonoBehaviour
         if (hold)
         {
             Rigidbody rb = col.transform.GetComponent<Rigidbody>();
-            if (rb != null&&(col.transform.gameObject.name== "Cube (14)" || col.transform.gameObject.name == "Cube (17)"))
+            //这里只能举起来14或者15
+            //这里要是碰到另外一个物体的
+            if (rb != null&&(col.transform.gameObject.name== "Cube (14)" || col.transform.gameObject.name == "Cube (15)" || col.transform.gameObject.name == "Spine_01"))
             {
                 Debug.Log("hand" + 123);
                 FixedJoint fj = transform.gameObject.AddComponent(typeof(FixedJoint)) as FixedJoint;

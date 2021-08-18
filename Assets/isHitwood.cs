@@ -18,7 +18,7 @@ public class isHitwood : MonoBehaviour
         // Debug.Log("Grounded1" + IsGrounded1);
         GameObject gameObj = collision.gameObject;
         // print("gameObject" + gameObj.name);
-        if (gameObj.name == "Cube (14)")
+        if (gameObj.name == "Cube (14)"|| gameObj.name == "Cube (15)")
         {
             hitWood = true;
         }
@@ -29,7 +29,7 @@ public class isHitwood : MonoBehaviour
         // Debug.Log("Grounded1" + IsGrounded1);
         GameObject gameObj = collision.gameObject;
         // print("gameObject" + gameObj.name);
-        if (gameObj.name == "Cube (14)")
+        if (gameObj.name == "Cube (14)"|| gameObj.name == "Cube (15)")
         {
             hitWood = false;
         }

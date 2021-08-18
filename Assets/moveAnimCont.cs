@@ -142,6 +142,7 @@ public class moveAnimCont : MonoBehaviour
         //这个hip也可以这么玩
         targetPos = hips.position;
         hipsRotation = hips.rotation;
+
         ikRotation = Rotate.rotation; //记录开始旋转的位置
     }
     Quaternion getQuaternionNi(Quaternion q)
@@ -313,8 +314,8 @@ public class moveAnimCont : MonoBehaviour
                         }
                         else
                         {
-                            //   Dir = Mathf.LerpAngle(Dir, Frente, Transla * Time.deltaTime);
-                            //  Anim.SetInteger("idleTo", 0);
+                               Dir = Mathf.LerpAngle(Dir, Frente, Transla * Time.deltaTime);
+                               Anim.SetInteger("idleTo", 0);
                         }
                     }
                 }
@@ -461,37 +462,57 @@ public class moveAnimCont : MonoBehaviour
         //这里要获取到父亲节点
         //会旋转到正方向
         //但是还有问题的是这个旋转的时候好像是绕一另外一个轴旋转
-        float speed = 10f;
+        float speed = 10000f;
         float time1 = 1f;
         //这里的每一个旋转都要重新记录
 
+        //在掉下来之后的一瞬间再转向就被改掉了
         if (Input.GetKey(KeyCode.UpArrow))
         {
+            Anim.SetInteger("idleTo", 0);
             Quaternion q = Quaternion.LookRotation(new Vector3(0.01f, 0, 0), Vector3.up);
             character.rotation = Quaternion.Slerp(character.rotation, q, speed * Time.deltaTime);
             // character.Rotate(Vector3.up * speed);
-            recordData();
-
+            Vector3 tmp = new Vector3(0, 90f, 0);
+            //0 90 0
+          //  if (judgeSim(q, character.rotation))
+                recordData();
 
         }
         else if(Input.GetKey(KeyCode.DownArrow))
         {
+            //0  -90 0
+            Anim.SetInteger("idleTo", 0);
             Quaternion q = Quaternion.LookRotation(new Vector3(-0.01f, 0, 0), Vector3.up);
             character.rotation = Quaternion.Slerp(character.rotation, q, speed * Time.deltaTime);
-            recordData();
+            Vector3 tmp = new Vector3(0, -90f, 0);
+            //0 90 0
+            //if (judgeSim(q, character.rotation))
+                recordData();
 
         }
         else if(Input.GetKey(KeyCode.LeftArrow))
         {
+            //0 0 0
+            Anim.SetInteger("idleTo", 0);
             Quaternion q = Quaternion.LookRotation(new Vector3(0, 0, 0.01f), Vector3.up);
             character.rotation = Quaternion.Slerp(character.rotation, q, speed * Time.deltaTime);
-            recordData();
+            Vector3 tmp = new Vector3(0, 0f, 0);
+            //0 90 0
+            //if (judgeSim(q, character.rotation))
+                recordData();
+
         }
         else if(Input.GetKey(KeyCode.RightArrow))
         {
+            //0 -180 0
+            Anim.SetInteger("idleTo", 0);
             Quaternion q = Quaternion.LookRotation(new Vector3(0, 0, -0.01f), Vector3.up);
             character.rotation = Quaternion.Slerp(character.rotation, q, speed * Time.deltaTime);
-            recordData();
+            Vector3 tmp = new Vector3(0, -180f, 0);
+            //0 90 0
+          //  if (judgeSim(q, character.rotation))
+                recordData();
         }
     }
 
@@ -878,9 +899,7 @@ public class moveAnimCont : MonoBehaviour
             float sped = 500;
             Vector3 movement = cylin.position -  hips.position;
 
-            //要给头加
-            //这里要判断脚没有离地 脚离地了就不能加了只有旋转
-            //if()
+ 
             hips.GetComponent<Rigidbody>().AddForce(movement * sped);
 
             UseSpring = false;
